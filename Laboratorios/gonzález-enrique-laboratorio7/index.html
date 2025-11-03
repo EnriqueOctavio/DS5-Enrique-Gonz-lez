@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Registro de Estudiantes</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="contenedor">
+    <header class="encabezado">
+      <h1>📚 Registro de Estudiantes</h1>
+      <span id="badge" class="insignia">0 estudiantes</span>
+    </header>
+
+    <section class="caja">
+      <h2>Nuevo estudiante</h2>
+
+      <form id="form-estudiante">
+        <div class="fila">
+          <div class="campo">
+            <label for="nombre">Nombre *</label>
+            <input id="nombre" name="nombre" type="text" placeholder="Ana Sofía" required />
+          </div>
+
+          <div class="campo">
+            <label for="apellido">Apellido *</label>
+            <input id="apellido" name="apellido" type="text" placeholder="González" required />
+          </div>
+        </div>
+
+        <div class="fila">
+          <div class="campo">
+            <label for="email">Email *</label>
+            <input id="email" name="email" type="email" placeholder="ana@example.com" required />
+          </div>
+        </div>
+
+        <div class="fila">
+          <div class="campo">
+            <label for="edad">Edad</label>
+            <input id="edad" name="edad" type="number" min="18" max="100" value="18" required />
+          </div>
+
+          <div class="campo">
+            <label for="carrera">Carrera</label>
+            <select id="carrera" name="carrera" required>
+              <option value="">— Selecciona —</option>
+              <option>Administración y desarrollo de Software</option>
+              <option>Medicina</option>
+              <option>Arquitectura</option>
+              <option>Derecho</option>
+              <option>Administración</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="acciones">
+          <button type="submit" class="boton boton-primario">Agregar estudiante</button>
+          <button type="button" id="btn-limpiar" class="boton boton-fantasma">Limpiar</button>
+          <span class="nota">Los campos marcados con * son obligatorios.</span>
+        </div>
+      </form>
+    </section>
+
+    <button id="btn-borrar-todo" class="boton boton-fantasma peligro">Borrar todo</button>
+
+    <section class="caja">
+      <h2>Estudiantes</h2>
+
+      <div class="tabla-contenedor">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Email</th>
+              <th>Edad</th>
+              <th>Carrera</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="lista">
+            <tr class="vacio">
+              <td colspan="7">No hay resultados.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+</html>
+

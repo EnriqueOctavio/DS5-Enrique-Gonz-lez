@@ -1,0 +1,184 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  background: #0b1220;
+  color: #e5e7eb;
+}
+
+.contenedor {
+  max-width: 1000px;
+  margin: 24px auto 64px;
+  padding: 0 16px;
+}
+
+.encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+h1 {
+  font-size: 28px;
+  margin: 0;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 18px;
+  margin: 0 0 12px 0;
+  font-weight: 600;
+  color: #cbd5e1;
+}
+
+.insignia {
+  background: #14532d;
+  color: #d1fae5;
+  border-radius: 9999px;
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.caja {
+  background: #0f172a;
+  border: 1px solid #1f2a44;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.fila {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.campo {
+  flex: 1;
+  min-width: 240px;
+}
+
+label {
+  display: block;
+  font-size: 12px;
+  color: #94a3b8;
+  margin-bottom: 6px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #29324a;
+  background: #0b1220;
+  color: #e5e7eb;
+  outline: none;
+}
+
+input:focus,
+select:focus {
+  border-color: #3b82f6;
+}
+
+.acciones {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.nota {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.boton {
+  border: 1px solid #29324a;
+  background: #0b1220;
+  color: #e5e7eb;
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+.boton:hover {
+  opacity: 0.9;
+}
+
+.boton-primario {
+  background: #22c55e;
+  border-color: #22c55e;
+  color: #0b1220;
+  font-weight: 600;
+}
+
+.boton-fantasma {
+  background: #0f172a;
+}
+
+.peligro {
+  margin: 10px 0 14px 0;
+}
+
+.tabla-contenedor {
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 14px 12px;
+  border-bottom: 1px solid #1f2a44;
+  font-size: 14px;
+}
+
+thead th {
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+tbody tr:hover {
+  background: #0c1426;
+}
+
+.vacio td {
+  text-align: center;
+  color: #94a3b8;
+}
+
+.etiqueta {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 9999px;
+  background: #111827;
+  border: 1px solid #29324a;
+  font-size: 12px;
+}
+
+.boton-mini {
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: #111827;
+  color: #e5e7eb;
+  border: 1px solid #29324a;
+}
+
+.boton-mini:hover {
+  background: #0b1220;
+}
