@@ -59,13 +59,20 @@ h2 {
 .fila {
   display: flex;
   gap: 14px;
-  flex-wrap: wrap;
+  flex-wrap: row;
+  margin-bottom: 12px;
+}
+
+.fila2 {
+  display: flex;
+  width: 50%;
+  gap: 14px;
+  flex-wrap: row;
   margin-bottom: 12px;
 }
 
 .campo {
-  flex: 1;
-  min-width: 240px;
+  width: 50%;
 }
 
 label {

@@ -15,7 +15,6 @@ const btnBorrarTodo = document.getElementById("btn-borrar-todo");
 function resetForm(){
   form.reset();
   edad.value = "18";
-  nombre.focus();
 }
 
 function pintar(){

@@ -36,26 +36,28 @@
             <label for="email">Email *</label>
             <input id="email" name="email" type="email" placeholder="ana@example.com" required />
           </div>
+
+          <div class="fila2">
+            <div class="campo">
+              <label for="edad">Edad</label>
+              <input id="edad" name="edad" type="number" min="18" max="100" value="18" required />
+            </div>
+
+            <div class="campo">
+              <label for="carrera">Carrera</label>
+              <select id="carrera" name="carrera" required>
+                <option value="">— Selecciona —</option>
+                <option>Administración y desarrollo de Software</option>
+                <option>Medicina</option>
+                <option>Arquitectura</option>
+                <option>Derecho</option>
+                <option>Administración</option>
+              </select>
+            </div>
+          </div>
         </div>
 
-        <div class="fila">
-          <div class="campo">
-            <label for="edad">Edad</label>
-            <input id="edad" name="edad" type="number" min="18" max="100" value="18" required />
-          </div>
-
-          <div class="campo">
-            <label for="carrera">Carrera</label>
-            <select id="carrera" name="carrera" required>
-              <option value="">— Selecciona —</option>
-              <option>Administración y desarrollo de Software</option>
-              <option>Medicina</option>
-              <option>Arquitectura</option>
-              <option>Derecho</option>
-              <option>Administración</option>
-            </select>
-          </div>
-        </div>
+        
 
         <div class="acciones">
           <button type="submit" class="boton boton-primario">Agregar estudiante</button>
@@ -90,6 +92,7 @@
           </tbody>
         </table>
       </div>
+      <p class="nota">Concejo: usa el buscador para buscar rápidamente los registro</p>
     </section>
   </div>
 
