@@ -1,90 +1,153 @@
-let alumnos = [];
-let uid = 1;
+(() => {
+  const App = (() => {
+    const state = {
+      alumnos: [],
+      uid: 1,
+    };
 
-const form = document.getElementById("form-estudiante");
-const nombre = document.getElementById("nombre");
-const apellido = document.getElementById("apellido");
-const email = document.getElementById("email");
-const edad = document.getElementById("edad");
-const carrera = document.getElementById("carrera");
-const lista = document.getElementById("lista");
-const badge = document.getElementById("badge");
-const btnLimpiar = document.getElementById("btn-limpiar");
-const btnBorrarTodo = document.getElementById("btn-borrar-todo");
+    const htmlElements = {
+      form: document.querySelector("#form-estudiante"),
+      nombre: document.querySelector("#nombre"),
+      apellido: document.querySelector("#apellido"),
+      email: document.querySelector("#email"),
+      edad: document.querySelector("#edad"),
+      carrera: document.querySelector("#carrera"),
+      lista: document.querySelector("#lista"),
+      badge: document.querySelector("#badge"),
+      btnLimpiar: document.querySelector("#btn-limpiar"),
+      btnBorrarTodo: document.querySelector("#btn-borrar-todo"),
+    };
 
-function resetForm(){
-  form.reset();
-  edad.value = "18";
-}
+    const templates = {
+      filaVacia() {
+        return `
+          <tr class="vacio">
+            <td colspan="7">No hay resultados.</td>
+          </tr>
+        `;
+      },
+      filaAlumno(alumno, index) {
+        return `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${alumno.nombre}</td>
+            <td>${alumno.apellido}</td>
+            <td>${alumno.email}</td>
+            <td>${alumno.edad}</td>
+            <td>${alumno.carrera}</td>
+            <td>
+              <button class="boton-mini" data-id="${alumno.id}">Eliminar</button>
+            </td>
+          </tr>
+        `;
+      },
+      badgeTexto(total) {
+        if (total === 1) return "1 estudiante";
+        return `${total} estudiantes`;
+      },
+    };
 
-function pintar(){
-  lista.innerHTML = "";
-  if(alumnos.length === 0){
-    const tr = document.createElement("tr");
-    tr.className = "vacio";
-    const td = document.createElement("td");
-    td.colSpan = 7;
-    td.textContent = "No hay resultados.";
-    tr.appendChild(td);
-    lista.appendChild(tr);
-  }else{
-    alumnos.forEach((a,i)=>{
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${i+1}</td>
-        <td>${a.nombre}</td>
-        <td>${a.apellido}</td>
-        <td>${a.email}</td>
-        <td>${a.edad}</td>
-        <td>${a.carrera}</td>
-        <td><button class="boton-mini" data-id="${a.id}">Eliminar</button></td>
-      `;
-      lista.appendChild(tr);
-    });
-  }
-  const n = alumnos.length;
-  badge.textContent = n === 1 ? "1 estudiante" : `${n} estudiantes`;
-}
+    const utils = {
+      resetForm() {
+        htmlElements.form.reset();
+        htmlElements.edad.value = "18";
+      },
+      emailValido(valor) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor);
+      },
+      pintarTabla() {
+        const { lista, badge } = htmlElements;
+        const { alumnos } = state;
 
-function emailValido(v){
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-}
+        lista.innerHTML = "";
 
-form.addEventListener("submit", function(e){
-  e.preventDefault();
-  if(!form.reportValidity()) return;
+        if (alumnos.length === 0) {
+          lista.innerHTML = templates.filaVacia();
+        } else {
+          alumnos.forEach((alumno, index) => {
+            lista.innerHTML += templates.filaAlumno(alumno, index);
+          });
+        }
 
-  const n = nombre.value.trim();
-  const ap = apellido.value.trim();
-  const em = email.value.trim();
-  const ed = parseInt(edad.value,10);
-  const ca = carrera.value;
+        badge.textContent = templates.badgeTexto(alumnos.length);
+      },
+    };
 
-  if(!emailValido(em)){ alert("Por favor escribe un email válido."); return; }
-  if(isNaN(ed) || ed < 18 || ed > 100){ alert("La edad debe estar entre 18 y 100."); return; }
-  if(!ca){ alert("Selecciona una carrera."); return; }
+    const handlers = {
+      onFormSubmit(e) {
+        e.preventDefault();
 
-  alumnos.push({ id: uid++, nombre: n, apellido: ap, email: em, edad: ed, carrera: ca });
-  pintar();
-  resetForm();
-});
+        if (!htmlElements.form.reportValidity()) return;
 
-btnLimpiar.addEventListener("click", resetForm);
+        const n = htmlElements.nombre.value.trim();
+        const ap = htmlElements.apellido.value.trim();
+        const em = htmlElements.email.value.trim();
+        const ed = parseInt(htmlElements.edad.value, 10);
+        const ca = htmlElements.carrera.value;
 
-lista.addEventListener("click", function(e){
-  if(e.target.matches("button[data-id]")){
-    const id = Number(e.target.getAttribute("data-id"));
-    alumnos = alumnos.filter(a => a.id !== id);
-    pintar();
-  }
-});
+        if (!utils.emailValido(em)) {
+          alert("Por favor escribe un email válido.");
+          return;
+        }
 
-btnBorrarTodo.addEventListener("click", function(){
-  if(alumnos.length === 0) return;
-  const ok = confirm("¿Borrar todos los estudiantes?");
-  if(!ok) return;
-  alumnos = [];
-  pintar();
-});
+        if (isNaN(ed) || ed < 18 || ed > 100) {
+          alert("La edad debe estar entre 18 y 100.");
+          return;
+        }
 
-pintar();
+        if (!ca) {
+          alert("Selecciona una carrera.");
+          return;
+        }
+
+        state.alumnos.push({
+          id: state.uid++,
+          nombre: n,
+          apellido: ap,
+          email: em,
+          edad: ed,
+          carrera: ca,
+        });
+
+        utils.pintarTabla();
+        utils.resetForm();
+      },
+
+      onListaClick(e) {
+        const boton = e.target.closest("button[data-id]");
+        if (!boton) return;
+
+        const id = Number(boton.getAttribute("data-id"));
+        state.alumnos = state.alumnos.filter((a) => a.id !== id);
+        utils.pintarTabla();
+      },
+
+      onBtnLimpiarClick() {
+        utils.resetForm();
+      },
+
+      onBtnBorrarTodoClick() {
+        if (state.alumnos.length === 0) return;
+
+        const ok = confirm("¿Borrar todos los estudiantes?");
+        if (!ok) return;
+
+        state.alumnos = [];
+        utils.pintarTabla();
+      },
+    };
+
+    return {
+      init() {
+        htmlElements.form.addEventListener("submit", handlers.onFormSubmit);
+        htmlElements.lista.addEventListener("click", handlers.onListaClick);
+        htmlElements.btnLimpiar.addEventListener("click", handlers.onBtnLimpiarClick);
+        htmlElements.btnBorrarTodo.addEventListener("click", handlers.onBtnBorrarTodoClick);
+
+        utils.pintarTabla();
+      },
+    };
+  })();
+
+  App.init();
+})();
