@@ -8,6 +8,7 @@ buttonTag.forEach((button) => {
   });
 }); */
 
+
 // Captando todo lo necesario para el manejo de las tags
 const buttonContainer = document.querySelector('.buttons-tag-container');
 const buttonTag = document.querySelectorAll('.button-tag')
@@ -33,7 +34,3 @@ buttonContainer.addEventListener('click', (event) => {
     panel.hidden = vistaPanel !== vistaButton;
   });
 });
-
-
-
-
