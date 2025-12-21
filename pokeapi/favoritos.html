@@ -1,0 +1,108 @@
+<div class="favoritos-container">
+  <div class="favoritos-lista" id="favoritos-lista"></div>
+
+
+  <div class="favoritos-limpiar-container">
+    
+    <button class="botones boton-limpiar-todo" id="btn-limpiar-favoritos">
+      🗑️ LIMPIAR TODO
+    </button>
+  </div>
+</div>
+
+
+<script>
+(() => {
+  const favoritosPokemon = 'favoritos_pokemon';
+
+
+  const html = {
+    lista: document.getElementById('favoritos-lista'),
+    btnLimpiar: document.getElementById('btn-limpiar-favoritos'),
+  };
+
+  const templates = {
+    item: (pokemon) => `
+      <div class="favoritos-item">
+        <div class="favoritos-imagen-container">
+          <img
+            class="favoritos-imagen"
+            src="${pokemon.imagen}"
+            alt="${pokemon.nombre}"
+          >
+        </div>
+
+        <div class="favoritos-info">
+          <span class="favoritos-nombre">
+            #${pokemon.id} ${pokemon.nombre}
+          </span>
+
+          <div class="favoritos-tipos">
+            ${pokemon.tipos
+              .map(tipo => `<span class="favoritos-tipo-tag">${tipo}</span>`)
+              .join('')}
+          </div>
+        </div>
+
+        <div class="favoritos-acciones">
+          <button
+            class="botones boton-eliminar"
+            data-id="${pokemon.id}"
+            title="Eliminar de favoritos"
+          >
+            🗑️
+          </button>
+        </div>
+      </div>
+    `,
+
+
+    vacio: () => `
+      <div class="favoritos-vacio">
+        <span class="favoritos-vacio-icon">❤️</span>
+        <h6>No hay Pokémon en favoritos</h6>
+        <p>Busca un Pokémon y márcalo como favorito</p>
+      </div>
+    `
+  };
+
+  
+
+
+  function renderFavoritos() {
+    const favoritos = obtenerFavoritos();
+
+    if (favoritos.length === 0) {
+      html.lista.innerHTML = templates.vacio();
+      return;
+    }
+
+    html.lista.innerHTML = favoritos
+      .map(pokemon => templates.item(pokemon))
+      .join('');
+  }
+
+
+  html.lista.addEventListener('click', (e) => {
+    const btnEliminar = e.target.closest('.boton-eliminar');
+    if (!btnEliminar) return;
+
+    const id = parseInt(btnEliminar.dataset.id);
+    const favoritos = obtenerFavoritos().filter(p => p.id !== id);
+
+    guardarFavoritos(favoritos);
+    renderFavoritos();
+  });
+
+
+  html.btnLimpiar.addEventListener('click', () => {
+    localStorage.removeItem(favoritosPokemon);
+    renderFavoritos();
+  });
+
+  window.renderFavoritos = renderFavoritos;
+
+  renderFavoritos();
+})();
+</script>
+

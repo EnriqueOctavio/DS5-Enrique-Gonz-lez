@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portal de Eventos UTP</title>
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body id="top">
+  <a href="#contenido" class="skip-link">Saltar al contenido</a>
+
+  <header>
+    <div class="wrap brand">
+      <img src="https://utp.ac.pa/sites/default/files/tropical_utp_logo.jpg" alt="Logo UTP">
+      <div>
+        <h1>Portal de Eventos UTP</h1>
+        <p class="subtitulo">Aprendiendo CSS paso a paso</p>
+      </div>
+      <nav class="nav-main">
+        <ul>
+          <li><a href="#multimedia">Multimedia</a></li>
+          <li><a href="#eventos">Eventos</a></li>
+          <li><a href="#registro">Registro</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap" id="contenido">
+    <div class="kpis padding">
+      <div><strong>Próximos eventos:</strong> 5</div>
+      <div><strong>Cupos totales:</strong> 600</div>
+      <div><strong>Categorías:</strong> Académicos, Deportivos, Culturales</div>
+    </div>
+
+    <main>
+      <section id="intro" class="padding">
+        <h2>Introducción</h2>
+        <p>Este es un párrafo de ejemplo para practicar estilos con CSS.</p>
+      </section>
+
+      <section class="tarjeta padding">
+        <h2>Tarjeta de prueba</h2>
+        <p>Aquí probaremos bordes, márgenes y padding.</p>
+      </section>
+
+      <section id="multimedia" class="media margin-top padding">
+        <h2>Sección Multimedia de Eventos</h2>
+
+        <figure>
+          <video controls preload="metadata" width="100%" poster="assets/evento-foto.jpg">
+            <source src="assets/evento-video.mp4" type="video/mp4">
+            <source src="https://filesamples.com/samples/video/webm/sample_640x360.webm" type="video/webm">
+            Tu navegador no soporta el video. Descarga el MP4.
+          </video>
+          <figcaption>Video promocional (placeholder).</figcaption>
+        </figure>
+
+        <figure>
+          <figcaption>Audio de ejemplo.</figcaption>
+          <audio controls preload="auto">
+            <source src="assets/patria.mp3" type="audio/mpeg">
+            <source src="data:audio/ogg;base64,T2dnUwACAAAAAAAAAAAyzN3NAAAAAGFf2X8BM39GTEFDAQAAAWZMYUMAAAAiEgASAAAAAAAkFQrEQPAAAAAAAAAAAAAAAAAAAAAAAAAAAE9nZ1MAAAAAAAAAAAAAMszdzQEAAAD5LKCSATeEAAAzDQAAAExhdmY1NS40OC4xMDABAAAAGgAAAGVuY29kZXI9TGF2YzU1LjY5LjEwMCBmbGFjT2dnUwAEARIAAAAAAAAyzN3NAgAAAKWVljkCDAD/+GkIAAAdAAABICI=" type="audio/ogg">
+            Tu navegador no soporta el audio.
+          </audio>
+        </figure>
+
+        <div class="mapa">
+          <iframe title="Mapa UTP" loading="lazy" src="https://maps.google.com/maps?q=Universidad%20Tecnol%C3%B3gica%20de%20Panam%C3%A1&t=&z=14&ie=UTF8&iwloc=&output=embed"></iframe>
+        </div>
+      </section>
+
+      <section id="eventos" class="padding">
+        <h2>Próximos eventos</h2>
+
+        <div class="tabs">
+          <a href="#academicos">Académicos</a>
+          <a href="#deportivos">Deportivos</a>
+          <a href="#culturales">Culturales</a>
+        </div>
+
+        <section id="academicos" class="margin-top">
+          <h3>Académicos</h3>
+          <section class="grid">
+            <article id="ev-ia-day">
+              <h4>Día de la IA</h4>
+              <p class="meta"><time datetime="2025-10-10">10/10/2025</time> • 14:00 – 18:00 • Auditorio Principal</p>
+              <p>Charlas y demostraciones sobre IA.</p>
+              <div class="bars">
+                <label>Cupos: <progress value="75" max="100">75%</progress></label>
+                <label>Popularidad: <meter value="8.5" min="0" max="10">8.5</meter></label>
+              </div>
+            </article>
+
+            <article id="ev-hack">
+              <h4>Hackatón UTP 2025</h4>
+              <p class="meta"><time datetime="2025-10-24">24/10/2025</time> • 09:00 – 21:00 • Sala de Innovación</p>
+              <p>Soluciones para retos de sostenibilidad.</p>
+              <div class="bars">
+                <label>Cupos: <progress value="40" max="100">40%</progress></label>
+                <label>Popularidad: <meter value="9.2" min="0" max="10">9.2</meter></label>
+              </div>
+            </article>
+          </section>
+        </section>
+
+        <section id="deportivos" class="margin-top">
+          <h3>Deportivos</h3>
+          <section class="grid">
+            <article id="ev-5k">
+              <h4>UTP 5K Solidaria</h4>
+              <p class="meta"><time datetime="2025-11-05">05/11/2025</time> • 07:00 • Campus VLS</p>
+              <p>Carrera y caminata.</p>
+              <div class="bars">
+                <label>Cupos: <progress value="60" max="100">60%</progress></label>
+                <label>Popularidad: <meter value="7.8" min="0" max="10">7.8</meter></label>
+              </div>
+            </article>
+
+            <article id="ev-interfac">
+              <h4>Interfacultades Fútbol Sala</h4>
+              <p class="meta"><time datetime="2025-10-30">30/10/2025</time> • 16:00 • Gimnasio UTP</p>
+              <p>Torneo entre facultades.</p>
+              <div class="bars">
+                <label>Cupos: <progress value="85" max="100">85%</progress></label>
+                <label>Popularidad: <meter value="6.9" min="0" max="10">6.9</meter></label>
+              </div>
+            </article>
+          </section>
+        </section>
+
+        <section id="culturales" class="margin-top">
+          <h3>Culturales</h3>
+          <section class="grid">
+            <article id="ev-feria">
+              <h4>Feria Tecnológica &amp; Cultural</h4>
+              <p class="meta"><time datetime="2025-11-15">15/11/2025</time> • 10:00 – 17:00 • Plaza Central</p>
+              <p>Exhibiciones, música y stands.</p>
+              <div class="bars">
+                <label>Cupos: <progress value="50" max="100">50%</progress></label>
+                <label>Popularidad: <meter value="8.1" min="0" max="10">8.1</meter></label>
+              </div>
+            </article>
+          </section>
+        </section>
+      </section>
+
+      <aside class="padding">
+        <h2>Destacados y noticias</h2>
+        <ul>
+          <li><a href="#ev-hack">Inscripciones abiertas</a></li>
+          <li><a href="#ev-ia-day">Ponentes confirmados</a></li>
+          <li><a href="#ev-5k">Voluntariado 5K</a></li>
+        </ul>
+
+        <section id="galeria">
+          <h3>Galería</h3>
+          <figure>
+            <img src="assets/evento-foto.jpg" alt="Foto de evento UTP">
+            <figcaption>Recuerdos de la feria.</figcaption>
+          </figure>
+        </section>
+      </aside>
+    </main>
+
+    <section id="registro" class="padding margin-top">
+      <h2>Formulario de registro a eventos</h2>
+
+      <form action="#" method="get" oninput="interesOut.value=interes.value">
+        <fieldset>
+          <legend>Información Personal</legend>
+          <div class="row">
+            <div>
+              <label for="nombre">Nombre completo *</label>
+              <input id="nombre" name="nombre" type="text" required placeholder="Nombre y apellido">
+            </div>
+            <div>
+              <label for="cedula">Cédula panameña *</label>
+              <input id="cedula" name="cedula" type="text" required placeholder="00-0000-0000" pattern="^\d{2}-\d{3,4}-\d{4}$">
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="nacimiento">Fecha de nacimiento *</label>
+              <input id="nacimiento" name="nacimiento" type="date" required min="1950-01-01" max="2009-12-31">
+            </div>
+            <div>
+              <label for="correo">Correo institucional *</label>
+              <input id="correo" name="correo" type="email" required placeholder="tunombre@utp.ac.pa">
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="telefono">Teléfono *</label>
+              <input id="telefono" name="telefono" type="tel" required placeholder="+507 6000-0000" pattern="^[0-9+\-\s]{7,20}$">
+            </div>
+            <div>
+              <label for="facultad">Facultad *</label>
+              <input list="facultades" id="facultad" name="facultad" required placeholder="Selecciona o escribe">
+              <datalist id="facultades">
+                <option value="Ingeniería de Sistemas">
+                <option value="Ingeniería Civil">
+                <option value="Ingeniería Industrial">
+                <option value="Ingeniería Eléctrica">
+                <option value="Ingeniería Mecánica">
+              </datalist>
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="color">Color favorito</label>
+              <input id="color" name="color" type="color" value="#006241">
+            </div>
+            <div>
+              <label for="acompanantes">Acompañantes</label>
+              <input id="acompanantes" name="acompanantes" type="number" min="0" max="5" step="1" value="0">
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="padding">
+          <legend>Selección de Evento</legend>
+          <div class="row">
+            <div>
+              <label for="evento">Evento *</label>
+              <select id="evento" name="evento" required>
+                <option value="">— Selecciona —</option>
+                <option value="ev-ia-day">Día de la IA</option>
+                <option value="ev-hack">Hackatón UTP 2025</option>
+                <option value="ev-5k">UTP 5K Solidaria</option>
+                <option value="ev-interfac">Interfacultades Fútbol Sala</option>
+                <option value="ev-feria">Feria Tecnológica & Cultural</option>
+              </select>
+            </div>
+            <div>
+              <label for="hora">Hora preferida</label>
+              <input id="hora" name="hora" type="time">
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="interes">Nivel de interés (1–10)</label>
+              <input id="interes" name="interes" type="range" min="1" max="10" value="5">
+              <div>Valor actual: <output id="interesOut">5</output></div>
+            </div>
+          </div>
+        </fieldset>
+
+        <p id="nota-legal">* Campos obligatorios. Esta es una demo educativa.</p>
+
+        <div class="acciones-form">
+          <button type="submit" class="btn-utp">Enviar registro</button>
+          <button type="reset" class="btn-utp">Limpiar</button>
+        </div>
+      </form>
+
+      <section id="faq">
+        <h2>Preguntas frecuentes</h2>
+        <details>
+          <summary>¿Cómo me registro?</summary>
+          <p>Llena el formulario, elige un evento y presiona “Enviar”.</p>
+        </details>
+        <details>
+          <summary>¿Puedo editar mi registro?</summary>
+          <p>En esta demo no se guardan datos.</p>
+        </details>
+        <details>
+          <summary>¿Dónde son los eventos?</summary>
+          <p>Revisa el mapa y la información de cada evento.</p>
+        </details>
+      </section>
+    </section>
+  </div>
+
+  <footer id="contacto">
+    <div class="wrap">
+      <p><strong>Universidad Tecnológica de Panamá</strong> — <a href="mailto:eventos@utp.ac.pa">eventos@utp.ac.pa</a> • +507 560-3000</p>
+      <p class="social">
+        <a href="#">Facebook</a> ·
+        <a href="#">Instagram</a> ·
+        <a href="#">X</a>
+      </p>
+      <p><a href="#top">Volver arriba</a></p>
+    </div>
+  </footer>
+</body>
+</html>

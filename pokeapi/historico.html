@@ -1,0 +1,164 @@
+<div class="historico-container">
+  <div class="historico-lista" id="historico-lista"></div>
+
+  <div class="historico-limpiar-container">
+    <button class="botones boton-limpiar-todo" id="btn-limpiar-historico">
+        🗑️ LIMPIAR TODO
+    </button>
+  </div>
+</div>
+
+<script>
+  (() => {
+
+    const htmlElements = {
+      lista: document.getElementById('historico-lista'),
+      btnLimpiar: document.getElementById('btn-limpiar-historico'),
+    };
+
+
+    const templates = {
+      item: (pokemon) => `
+        <div class="historico-item" data-pokemon="${pokemon.nombre.toLowerCase()}">
+              <div class="historico-imagen-container">
+            <img class="historico-imagen" src="${pokemon.imagen}" alt="${pokemon.nombre}">
+              </div>
+          <div class="historico-info">
+            <span class="historico-nombre">#${pokemon.id}  ${pokemon.nombre}</span>
+            <div class="historico-tipos">
+              ${pokemon.tipos.map(tipo => `<span class="historico-tipo-tag">${tipo}</span>`).join('')}
+            </div>
+          </div>
+          <div class="historico-acciones">
+            <button class="botones boton-favorito-mini" data-id="${pokemon.id}" data-pokemon='${JSON.stringify(pokemon)}'>
+              ❤️
+            </button>
+            <button class="botones boton-eliminar" data-nombre="${pokemon.nombre.toLowerCase()}">
+              🗑️
+            </button>
+          </div>
+        </div>
+      `,
+
+
+      vacio: () => `<div class="historico-vacio">
+                      <span>📜</span>
+                      <h6>No hay Pokémon en el historial</h6>
+                      <p>Busca un Pokémon para agregarlo aquí</p>
+                      </div>`,
+    };
+
+
+    // Obtener los pokemon del cache
+    function obtenerPokemonsDelCache() {
+      const pokemonsEnCache = [];
+      const tiempoCache = 1000 * 60 * 5; // 5 minutos
+
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        
+        // Solo los que empiezan con pokemon_
+        if (key.startsWith('pokemon_')) {
+          const raw = localStorage.getItem(key);
+          if (raw) {
+            const cacheData = JSON.parse(raw);
+            
+            // Verificar si no ha expirado
+            if (Date.now() - cacheData.timestamp <= tiempoCache) {
+              const pokemon = cacheData.data;
+              pokemonsEnCache.push({
+                id: pokemon.id,
+                nombre: pokemon.name.toUpperCase(),
+                imagen: pokemon.sprites.front_default,
+                tipos: pokemon.types.map(t => t.type.name.toUpperCase())
+              });
+            }
+          }
+        }
+      }
+
+      // Ordenar por id
+      return pokemonsEnCache.sort((a, b) => a.id - b.id);
+    }
+
+
+    function renderHistorico() {
+      const pokemonsCache = obtenerPokemonsDelCache();
+
+      if (pokemonsCache.length === 0) {
+        htmlElements.lista.innerHTML = templates.vacio();
+        return;
+      }
+
+      htmlElements.lista.innerHTML = pokemonsCache.map(pokemon => templates.item(pokemon)).join('');
+    }
+
+
+    // Click en la lista para manejar los botones
+    htmlElements.lista.addEventListener('click', (e) => {
+
+      // Click en el item para buscar el pokemon
+      const item = e.target.closest('.historico-item');
+      if (item && !e.target.closest('button')) {
+        const nombrePokemon = item.dataset.pokemon;
+        document.getElementById('valor-busqueda').value = nombrePokemon;
+        document.getElementById('tipo-busqueda').value = 'pokemon';
+        buscarPokemon();
+        
+        // Cambiar a la pestaña de buscar
+        document.querySelector('[data-view="buscar"]').click();
+        return;
+      }
+
+
+      // Click en boton favorito
+      const btnFavorito = e.target.closest('.boton-favorito-mini');
+      if (btnFavorito) {
+        const pokemonData = JSON.parse(btnFavorito.dataset.pokemon);
+        
+        let favs = obtenerFavoritos();
+        const existe = favs.some(p => p.id === pokemonData.id);
+
+        if (!existe) {
+          favs.push(pokemonData);
+          guardarFavoritos(favs);
+          alert('Agregado a favoritos!');
+        } else {
+          alert('Ya está en favoritos');
+        }
+        return;
+      }
+
+
+      // Click en boton eliminar
+      const btnEliminar = e.target.closest('.boton-eliminar');
+      if (btnEliminar) {
+        const nombrePokemon = btnEliminar.dataset.nombre;
+        localStorage.removeItem(`pokemon_${nombrePokemon}`);
+        renderHistorico();
+        return;
+      }
+    });
+
+    window.renderHistorico = renderHistorico;
+    
+    // Limpiar todo el historico
+    htmlElements.btnLimpiar.addEventListener('click', () => {
+      const keysAEliminar = [];
+      
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith('pokemon_')) {
+          keysAEliminar.push(key);
+        }
+      }
+
+      keysAEliminar.forEach(key => localStorage.removeItem(key));
+      renderHistorico();
+    });
+
+
+    renderHistorico();
+
+  })();
+</script>

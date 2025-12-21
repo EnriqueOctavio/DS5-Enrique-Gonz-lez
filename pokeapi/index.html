@@ -1,168 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokeapi QuiQue</title>
-    <link rel="stylesheet" href="shared.css">
-  </head>
-  <body>
-    <div class="pokebola-container">
-      <div class="pokebola">
-        <div class="pokebola-centro"></div>
-      </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokeapi QuiQue y Torres</title>
+  <link rel="stylesheet" href="shared.css">
+</head>
+
+<body>
+  
+  <button id="btn-dark-mode" class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</button>
+
+  <div class="pokebola-container">
+    <div class="pokebola">
+      <div class="pokebola-centro"></div>
     </div>
-    <div class="app-container">
-      <div class="app-container-form">
-        <h1>Pokémon Finder</h1>
-        <div class="buttons-tag-container">
-          <button class="botones button-tag button-tag--active" data-view="buscar">🔎 Buscar</button>
-          <button class="botones button-tag" data-view="historico">📜 Histórico</button>
-          <button class="botones button-tag" data-view="vs">⚔️ VS</button>
-          <button class="botones button-tag" data-view="favoritos">⭐ Favoritos</button>
-        </div>
-        <div>
-          <section class="panel" data-view-panel="buscar">
-            <!-- formulario de búsqueda de pokemones -->
-            <form class="formulario-busqueda">
-              <select class="selector-tipo" id="tipo-busqueda">
-                <option value="pokemon">👾 Pokemon</option>
-                <option value="habilidad">⚡Habilidad</option>
-              </select>
-              <input 
-                type="text" 
-                class="campo-texto" 
-                id="valor-busqueda" 
-                placeholder="NOMBRE O ID"
-              >
-              <button type="submit" class="botones boton-buscar">BUSCAR</button>
-            </form>
+  </div>
 
-            <!-- card del pokemon -->
-            <div class="resultado-busqueda">
-              <div class="pokemon-card" id="pokemon-card">
-                <!-- header de la card -->
-                <div class="card-tag-container">
-                  <span class="card-tag-tipo">POKEMON_DATA</span>
-                  <span class="card-tag-origen">🌐 DESDE API</span>
+  <div class="app-container">
+    <div class="app-container-form">
+      <h1 id="titulo-principal">Pokémon Finder</h1>
+
+      <div class="buttons-tag-container">
+        <button class="botones button-tag button-tag--active" data-view="buscar">🔎 Buscar</button>
+        <button class="botones button-tag" data-view="historico">📜 Histórico</button>
+        <button class="botones button-tag" data-view="vs">⚔️ VS</button>
+        <button class="botones button-tag" data-view="favoritos">❤️ Favoritos</button>
+      </div>
+
+      <div>
+        <!-- Panel de Búsqueda -->
+        <section class="panel" data-view-panel="buscar">
+          <form id="form-busqueda" class="formulario-busqueda">
+            <select class="selector-tipo" id="tipo-busqueda">
+              <option value="pokemon">👾 Pokemon</option>
+              <option value="habilidad">⚡Habilidad</option>
+            </select>
+            <input 
+              type="text" 
+              class="campo-texto" 
+              id="valor-busqueda" 
+              placeholder="NOMBRE O ID"
+            >
+            <div id="autocompletar" class="autocompletarlista"></div>
+            <button type="submit" class="botones boton-buscar">BUSCAR</button>
+          </form>
+
+          <div class="resultado-busqueda">
+            <!-- Card de Pokemon -->
+            <div class="pokemon-card" id="pokemon-card">
+              <div class="card-tag-container">
+                <span class="card-tag-tipo">POKEMON_DATA</span>
+                <span id="origenDatos" class="card-tag-origen origen-api">🌐 API</span>
+              </div>
+
+              <div class="card-imagen-container">
+                <img id="pokemonImagen" class="pokemon-imagen" src="" alt="Pokemon">
+              </div>
+
+              <div class="pokemon-info-principal">
+                <span id="iDPokemon" class="pokemon-nombre"></span>
+                <h2 id="nombrePokemon" class="pokemon-nombre"></h2>
+              </div>
+
+              <div class="card-tipos"></div>
+
+              <div class="habilidades-container">
+                <h3>HABILIDADES</h3>
+                <div class="card-habilidades"></div>
+              </div>
+
+              <div class="stats-container card-stats"></div>
+
+              <div class="favorito-container">
+                <button id="btn-favorito" onclick="toggle_fav()" class="botones boton-favorito">❤️</button>
+              </div>
+
+              <div class="evoluciones-seccion">
+                <h3 class="evoluciones-titulo">CADENA DE EVOLUCIÓN</h3>
+                <div class="evoluciones-container"></div>
+              </div>
+            </div>
+
+            <!-- Card de Habilidad -->
+            <div class="habilidad-card" id="habilidad-card">
+              <div class="habilidad-card-header">
+                <div class="habilidad-titulo">
+                  <span class="habilidad-icono">✨</span>
+                  <h2 class="habilidad-nombre">BATTLE ARMOR</h2>
                 </div>
-  
-                <!-- imagen del pokemon -->
-                <div class="card-imagen-container">
-                  <img class="card-imagen" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="Bulbasaur">
-                </div>
-  
-                <div class="card-info-container">
-                  <!-- nombre y numero -->
-                  <div class="card-nombre-container">
-                    <span class="id-pokemon">#1 </span>
-                    <span class="nombre-pokemon"> BULBASAUR</span>
-                  </div>
-    
-                  <!-- tipos del pokemon -->
-                  <div class="card-tipos">
-                    <span class="tipo-tag">GRASS</span>
-                    <span class="tipo-tag">POISON</span>
-                  </div>
+                <span class="habilidad-id">#4</span>
+              </div>
 
-                  <!-- habilidades -->
-                  <div class="habilidades-container">
-                    <h3>HABILIDADES</h3>
-                    <div class="card-habilidades">
-                      <span class="habilidad-tag">Overgrow</span>
-                      <span class="habilidad-tag habilidad-tag-2">Chlorophyll (Oculta)</span>
-                    </div>
-                  </div>
+              <div class="habilidad-efecto-container">
+                <h3 class="habilidad-efecto-titulo">EFECTO</h3>
+                <p class="habilidad-efecto-texto">Protects against critical hits.</p>
+              </div>
 
-                  <!-- stats del pokemon -->
-                  <div class="stats-container">
-                    <div class="stat-fila">
-                      <span class="stat-nombre">HP:</span>
-                      <div class="stat-barra-container">
-                        <div class="stat-barra" style="width: 45%;"></div>
-                      </div>
-                    </div>
-                    <div class="stat-fila">
-                      <span class="stat-nombre">ATTACK:</span>
-                      <div class="stat-barra-container">
-                        <div class="stat-barra" style="width: 49%;"></div>
-                      </div>
-                    </div>
-                    <div class="stat-fila">
-                      <span class="stat-nombre">DEFENSE:</span>
-                      <div class="stat-barra-container">
-                        <div class="stat-barra" style="width: 49%;"></div>
-                      </div>
-                    </div>
-                    <div class="stat-fila">
-                      <span class="stat-nombre">SPECIAL-ATTACK:</span>
-                      <div class="stat-barra-container">
-                        <div class="stat-barra" style="width: 65%;"></div>
-                      </div>
-                    </div>
-                    <div class="stat-fila">
-                      <span class="stat-nombre">SPECIAL-DEFENSE:</span>
-                      <div class="stat-barra-container">
-                        <div class="stat-barra" style="width: 65%;"></div>
-                      </div>
-                    </div>
-                    <div class="stat-fila">
-                      <span class="stat-nombre">SPEED:</span>
-                      <div class="stat-barra-container">
-                        <div class="stat-barra" style="width: 45%;"></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- boton de favoritos -->
-                  <div class="favorito-container">
-                    <button class="botones boton-favorito">❤️</button>
-                  </div>
-
-                  <!-- evoluciones -->
-                  <div class="evoluciones-seccion">
-                    <h3 class="evoluciones-titulo">CADENA DE EVOLUCIÓN</h3>
-                    <div class="evoluciones-container">
-                      <div class="evolucion-item evolucion-actual">
-                        <img class="evolucion-imagen" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="Bulbasaur">
-                        <span class="evolucion-nombre">BULBASAUR</span>
-                      </div>
-                      <span class="evolucion-flecha">→</span>
-                      <div class="evolucion-item">
-                        <img class="evolucion-imagen" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png" alt="Ivysaur">
-                        <span class="evolucion-nombre">IVYSAUR</span>
-                      </div>
-                      <span class="evolucion-flecha">→</span>
-                      <div class="evolucion-item">
-                        <img class="evolucion-imagen" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png" alt="Venusaur">
-                        <span class="evolucion-nombre">VENUSAUR</span>
-                      </div>
-                    </div>
+              <div class="habilidad-pokemon-container">
+                <h3 class="habilidad-pokemon-titulo">POKÉMON CON ESTA HABILIDAD (<span class="habilidad-pokemon-count">11</span>)</h3>
+                
+                <div class="habilidad-pokemon-grid">
+                  <div class="habilidad-pokemon-item">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/104.png" alt="Cubone" class="habilidad-pokemon-sprite">
+                    <span class="habilidad-pokemon-nombre">CUBONE</span>
+                    <span class="habilidad-pokemon-oculta">(oculta)</span>
                   </div>
                   
+                  <div class="habilidad-pokemon-item">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/105.png" alt="Marowak" class="habilidad-pokemon-sprite">
+                    <span class="habilidad-pokemon-nombre">MAROWAK</span>
+                    <span class="habilidad-pokemon-oculta">(oculta)</span>
+                  </div>
+                  
+                  <div class="habilidad-pokemon-item">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/140.png" alt="Kabuto" class="habilidad-pokemon-sprite">
+                    <span class="habilidad-pokemon-nombre">KABUTO</span>
+                  </div>
+                  
+                  <div class="habilidad-pokemon-item">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/141.png" alt="Kabutops" class="habilidad-pokemon-sprite">
+                    <span class="habilidad-pokemon-nombre">KABUTOPS</span>
+                  </div>
+                  
+                  <div class="habilidad-pokemon-item">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/347.png" alt="Anorith" class="habilidad-pokemon-sprite">
+                    <span class="habilidad-pokemon-nombre">ANORITH</span>
+                  </div>
+                  
+                  <div class="habilidad-pokemon-item">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/348.png" alt="Armaldo" class="habilidad-pokemon-sprite">
+                    <span class="habilidad-pokemon-nombre">ARMALDO</span>
+                  </div>
+                  
+                  <div class="habilidad-pokemon-item">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/451.png" alt="Skorupi" class="habilidad-pokemon-sprite">
+                    <span class="habilidad-pokemon-nombre">SKORUPI</span>
+                  </div>
+                  
+                  <div class="habilidad-pokemon-item">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/452.png" alt="Drapion" class="habilidad-pokemon-sprite">
+                    <span class="habilidad-pokemon-nombre">DRAPION</span>
+                  </div>
+                  
+                  <div class="habilidad-pokemon-item habilidad-pokemon-item--selected">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/772.png" alt="Type: Null" class="habilidad-pokemon-sprite">
+                    <span class="habilidad-pokemon-nombre">TYPE-NULL</span>
+                  </div>
+                  
+                  <div class="habilidad-pokemon-item">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/863.png" alt="Perrserker" class="habilidad-pokemon-sprite">
+                    <span class="habilidad-pokemon-nombre">PERRSERKER</span>
+                  </div>
+                  
+                  <div class="habilidad-pokemon-item">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/870.png" alt="Falinks" class="habilidad-pokemon-sprite">
+                    <span class="habilidad-pokemon-nombre">FALINKS</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </section>
+          </div>
 
-          <section class="panel" data-view-panel="historico">
-            <!-- lista de búsquedas anteriores -->
-             <h1>Histórico</h1>
-          </section>
+          <div id="result"></div>
+        </section>
 
-          <section class="panel" data-view-panel="vs">
-            <!-- comparador de pokémon -->
-             <h1>VS</h1>
-          </section>
+        <!-- Panel de Histórico -->
+        <section class="panel" data-view-panel="historico">
+          <div id="historico-section"></div>
+        </section>
 
-          <section class="panel" data-view-panel="favoritos">
-            <!-- pokémon favoritos -->
-             <h1>Favoritos</h1>
-          </section>
-        </div>
+        <!-- Panel de VS -->
+        <section class="panel" data-view-panel="vs">
+          <div id="vs-section"></div>
+        </section>
+
+        <!-- Panel de Favoritos -->
+        <section class="panel" data-view-panel="favoritos">
+          <div id="favoritos-section"></div>
+        </section>
       </div>
+
     </div>
-    <script src="shared.js"></script>
-  </body>
-  
+  </div>
+
+  <script src="shared.js"></script>
+</body>
 </html>
